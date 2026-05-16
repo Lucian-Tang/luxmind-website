@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Luxmind — 在AI时代帮更多人把产品做明白</title>
+  <meta name="description" content="Luxmind致力于在AI时代帮更多人把产品做明白。产品矩阵：有数Feed、有品Lab、有方Flow、有集ToolKit。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">
+        <span class="logo-icon">⚡</span>
+        <span class="logo-text">Luxmind</span>
+        <span class="logo-sub">Luxmind</span>
+      </a>
+      <div class="nav-links">
+        <a href="#products">产品</a>
+        <a href="#about">关于</a>
+        <a href="#team">团队</a>
+        <a href="#philosophy">理念</a>
+      </div>
+      <button class="nav-toggle" id="navToggle" aria-label="菜单">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero" id="hero">
+    <div class="hero-bg">
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+      <div class="orb orb-3"></div>
+      <div class="grid-overlay"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-badge reveal">
+        <span class="badge-dot"></span>
+        AI-Native Product Studio
+      </div>
+      <h1 class="hero-title reveal-delay-1">
+        在AI时代<br>
+        <span class="gradient-text">帮更多人把产品做明白</span>
+      </h1>
+      <p class="hero-sub reveal-delay-2">
+        Luxmind 是一间 AI-Native 产品工作室。我们不追风口，只做好产品。
+        从灵感到方法论，从品味到工具 — 四款产品，一件事：让产品人不再瞎做。
+      </p>
+      <div class="hero-actions reveal-delay-3">
+        <a href="#products" class="btn btn-primary">
+          探索产品
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a href="#about" class="btn btn-ghost">了解更多</a>
+      </div>
+    </div>
+    <div class="scroll-indicator">
+      <span>向下滚动</span>
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M6 8l4 4 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+  </section>
+
+  <!-- Products -->
+  <section class="products" id="products">
+    <div class="section-header reveal">
+      <span class="section-label">产品矩阵</span>
+      <h2>四款产品，一条主线</h2>
+      <p>每个产品解决产品人一个核心问题，组合起来是一套完整的 AI 时代产品方法论</p>
+    </div>
+
+    <div class="product-grid">
+      <!-- Product 1: 有数Feed -->
+      <article class="product-card reveal" data-status="live">
+        <div class="product-icon">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+            <rect width="32" height="32" rx="8" fill="url(#grad1)"/>
+            <path d="M10 20l4-6 4 4 4-8" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="product-tags">
+          <span class="tag tag-live">已上线</span>
+        </div>
+        <h3>有数 Feed</h3>
+        <p class="product-subtitle">有数灵感筛选助手</p>
+        <p class="product-desc">每日精读科技资讯，AI 筛选+人工编选，帮你用最低成本保持对 AI 行业的感知力。不刷屏、不焦虑、只读重要的。</p>
+        <div class="product-links">
+          <a href="https://lucian-tang.github.io/dushe-daily-data/" target="_blank" rel="noopener" class="product-link">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="currentColor" stroke-width="1.5"/><path d="M6 10l4-3-4-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Web
+          </a>
+          <span class="product-link product-link--wechat">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 2.5C2.5 2.5 1 4.5 1 6.5c0 1.2.7 2.3 1.8 3L2.5 11l2-1c.5.1 1 .2 1.5.2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><rect x="7.5" y="4" width="5.5" height="4.5" rx="1.5" stroke="currentColor" stroke-width="1.2"/></svg>
+            小程序
+          </span>
+        </div>
+      </article>
+
+      <!-- Product 2: 有品Lab -->
+      <article class="product-card reveal" data-status="paused">
+        <div class="product-icon">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+            <rect width="32" height="32" rx="8" fill="url(#grad2)"/>
+            <path d="M16 6l3 6 6.5 1-4.5 4.5 1 6.5-6-3-6 3 1-6.5L6.5 13l6.5-1L16 6z" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="product-tags">
+          <span class="tag tag-paused">停摆中</span>
+        </div>
+        <h3>有品 Lab</h3>
+        <p class="product-subtitle">AI开发品味训练</p>
+        <p class="product-desc">好产品需要好品味。通过刻意练习和案例拆解，训练产品人对 AI 产品的审美判断力。品味是 AI 时代产品人最重要的护城河。</p>
+        <div class="product-links">
+          <span class="product-link product-link--wechat">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 2.5C2.5 2.5 1 4.5 1 6.5c0 1.2.7 2.3 1.8 3L2.5 11l2-1c.5.1 1 .2 1.5.2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><rect x="7.5" y="4" width="5.5" height="4.5" rx="1.5" stroke="currentColor" stroke-width="1.2"/></svg>
+            小程序
+          </span>
+        </div>
+      </article>
+
+      <!-- Product 3: 有方Flow -->
+      <article class="product-card reveal" data-status="upcoming">
+        <div class="product-icon">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+            <rect width="32" height="32" rx="8" fill="url(#grad3)"/>
+            <path d="M8 10h16M8 16h12M8 22h8" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="24" cy="22" r="4" stroke="#fff" stroke-width="1.5"/>
+            <path d="M22.5 22l1 1 2-2" stroke="#fff" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="product-tags">
+          <span class="tag tag-upcoming">即将开发</span>
+        </div>
+        <h3>有方 Flow</h3>
+        <p class="product-subtitle">AI Agent 产品方法论</p>
+        <p class="product-desc">Agent 不是 Chatbot 套壳。从任务拆解到工具编排，从提示词到记忆系统 — 一套可操作的方法论，让 AI Agent 产品从 Demo 走向 Production。</p>
+        <div class="product-links">
+          <span class="product-link product-link--wechat">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 2.5C2.5 2.5 1 4.5 1 6.5c0 1.2.7 2.3 1.8 3L2.5 11l2-1c.5.1 1 .2 1.5.2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><rect x="7.5" y="4" width="5.5" height="4.5" rx="1.5" stroke="currentColor" stroke-width="1.2"/></svg>
+            小程序
+          </span>
+        </div>
+      </article>
+
+      <!-- Product 4: 有集ToolKit -->
+      <article class="product-card reveal" data-status="seed">
+        <div class="product-icon">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+            <rect width="32" height="32" rx="8" fill="url(#grad4)"/>
+            <rect x="7" y="7" width="7" height="7" rx="1.5" stroke="#fff" stroke-width="1.5"/>
+            <rect x="18" y="7" width="7" height="7" rx="1.5" stroke="#fff" stroke-width="1.5"/>
+            <rect x="7" y="18" width="7" height="7" rx="1.5" stroke="#fff" stroke-width="1.5"/>
+            <rect x="18" y="18" width="7" height="7" rx="1.5" stroke="#fff" stroke-width="1.5"/>
+          </svg>
+        </div>
+        <div class="product-tags">
+          <span class="tag tag-seed">种子期</span>
+        </div>
+        <h3>有集 ToolKit</h3>
+        <p class="product-subtitle">AI产品工具箱</p>
+        <p class="product-desc">把 AI 产品开发中反复用到的能力封装成工具：竞品分析模板、PRD 生成器、用户访谈框架……不用每次从零开始。</p>
+        <div class="product-links">
+          <span class="product-link product-link--coming">敬请期待</span>
+        </div>
+      </article>
+    </div>
+
+    <!-- Product Flow Diagram -->
+    <div class="product-flow reveal">
+      <div class="flow-line"></div>
+      <div class="flow-items">
+        <div class="flow-item">
+          <div class="flow-dot flow-dot--info"></div>
+          <span class="flow-label">灵感输入</span>
+          <span class="flow-product">有数Feed</span>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-item">
+          <div class="flow-dot flow-dot--taste"></div>
+          <span class="flow-label">品味判断</span>
+          <span class="flow-product">有品Lab</span>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-item">
+          <div class="flow-dot flow-dot--method"></div>
+          <span class="flow-label">方法论</span>
+          <span class="flow-product">有方Flow</span>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-item">
+          <div class="flow-dot flow-dot--tool"></div>
+          <span class="flow-label">工具箱</span>
+          <span class="flow-product">有集ToolKit</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section class="about" id="about">
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <span class="section-label">关于 Luxmind</span>
+        <h2>不追风口，<br>只做好产品</h2>
+        <p>我们相信 AI 的终极价值不在参数竞赛，而在帮普通人把想法变成产品。</p>
+        <p>Luxmind 是一间小工作室 — 一个人，三个 AI Agent，四款产品。没有融资压力，没有增长焦虑，只有做好产品的执念。</p>
+        <p>名字"Luxmind"取自淬火之意：好产品需要反复淬炼，才能发光。</p>
+      </div>
+      <div class="about-stats reveal">
+        <div class="stat-card">
+          <span class="stat-number">4</span>
+          <span class="stat-label">产品线</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number">3</span>
+          <span class="stat-label">AI Agent</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number">2024</span>
+          <span class="stat-label">创立年份</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number">∞</span>
+          <span class="stat-label">想做好的事</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Team -->
+  <section class="team" id="team">
+    <div class="section-header reveal">
+      <span class="section-label">团队</span>
+      <h2>一个人 + 三个 AI Agent</h2>
+      <p>这不是传统的"团队"，这是 AI 时代的新工作方式</p>
+    </div>
+    <div class="team-grid">
+      <div class="team-card reveal">
+        <div class="team-avatar team-avatar--lucian">
+          <span>L</span>
+        </div>
+        <h3>Lucian</h3>
+        <p class="team-role">CEO / 产品负责人</p>
+        <p class="team-bio">一个人扛起四款产品。相信好产品不需要大团队，需要好品味和好工具。</p>
+      </div>
+      <div class="team-connector reveal">
+        <div class="connector-line"></div>
+        <span class="connector-text">协同工作</span>
+      </div>
+      <div class="team-agents reveal">
+        <div class="agent-card">
+          <div class="agent-avatar agent-avatar--thomas">T</div>
+          <span>Thomas</span>
+          <span class="agent-role">产品策略</span>
+        </div>
+        <div class="agent-card">
+          <div class="agent-avatar agent-avatar--stephen">S</div>
+          <span>Stephen</span>
+          <span class="agent-role">研发工程</span>
+        </div>
+        <div class="agent-card">
+          <div class="agent-avatar agent-avatar--lucia">L</div>
+          <span>Lucia</span>
+          <span class="agent-role">协调运营</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Philosophy -->
+  <section class="philosophy" id="philosophy">
+    <div class="section-header reveal">
+      <span class="section-label">品牌理念</span>
+      <h2>我们相信的几件事</h2>
+    </div>
+    <div class="philosophy-grid">
+      <div class="philosophy-card reveal">
+        <div class="philosophy-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M12 2l3 6 6.5 1-4.5 4.5 1 6.5-6-3-6 3 1-6.5L2.5 9l6.5-1L12 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3>品味是护城河</h3>
+        <p>AI 能写代码但做不了品味判断。在 AI 时代，产品人的核心竞争力从"执行"转向"判断" — 知道什么值得做、什么不该做。</p>
+      </div>
+      <div class="philosophy-card reveal">
+        <div class="philosophy-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M12 6v6l4 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3>少即是多</h3>
+        <p>不堆功能，不追热点。每个产品只解决一个核心问题，做到极致。四个小而美的产品，胜过一个大而全的平台。</p>
+      </div>
+      <div class="philosophy-card reveal">
+        <div class="philosophy-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M4 6h16M4 12h16M4 18h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <circle cx="18" cy="18" r="3" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M16.5 18l1 1 2-2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3>AI-Native，不是 AI-Wrapper</h3>
+        <p>我们不用 AI 做噱头。每个产品都深度整合 AI 能力到工作流中 — 不是"加一个 Chat 按钮"，而是用 AI 重新思考产品的底层逻辑。</p>
+      </div>
+      <div class="philosophy-card reveal">
+        <div class="philosophy-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M17 9V7a5 5 0 00-10 0v2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <rect x="3" y="9" width="18" height="12" rx="2" stroke="currentColor" stroke-width="1.5"/>
+            <circle cx="12" cy="15" r="1.5" fill="currentColor"/>
+            <path d="M12 16.5v2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3>独立 & 可持续</h3>
+        <p>不融资、不烧钱、不追求规模。用产品说话，靠口碑增长。做一家能活 20 年的慢公司。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta">
+    <div class="cta-bg">
+      <div class="orb orb-4"></div>
+    </div>
+    <div class="cta-content reveal">
+      <h2>一起把产品做明白</h2>
+      <p>关注我们的产品，或者只是来聊聊 AI 和产品。</p>
+      <a href="https://lucian-tang.github.io/dushe-daily-data/" target="_blank" rel="noopener" class="btn btn-primary btn-lg">
+        访问有数Feed
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="footer-logo">⚡ Luxmind</span>
+        <p>在AI时代帮更多人把产品做明白</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <span class="footer-col-title">产品</span>
+          <a href="#products">有数Feed</a>
+          <a href="#products">有品Lab</a>
+          <a href="#products">有方Flow</a>
+          <a href="#products">有集ToolKit</a>
+        </div>
+        <div class="footer-col">
+          <span class="footer-col-title">关于</span>
+          <a href="#about">公司介绍</a>
+          <a href="#team">团队</a>
+          <a href="#philosophy">理念</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2024–2026 Luxmind</span>
+      <span>Made with ❤️ by Lucian & AI Agents</span>
+    </div>
+  </footer>
+
+  <!-- SVG Gradients -->
+  <svg width="0" height="0" style="position:absolute">
+    <defs>
+      <linearGradient id="grad1" x1="0" y1="0" x2="32" y2="32">
+        <stop offset="0%" stop-color="#6366f1"/>
+        <stop offset="100%" stop-color="#8b5cf6"/>
+      </linearGradient>
+      <linearGradient id="grad2" x1="0" y1="0" x2="32" y2="32">
+        <stop offset="0%" stop-color="#f59e0b"/>
+        <stop offset="100%" stop-color="#ef4444"/>
+      </linearGradient>
+      <linearGradient id="grad3" x1="0" y1="0" x2="32" y2="32">
+        <stop offset="0%" stop-color="#06b6d4"/>
+        <stop offset="100%" stop-color="#3b82f6"/>
+      </linearGradient>
+      <linearGradient id="grad4" x1="0" y1="0" x2="32" y2="32">
+        <stop offset="0%" stop-color="#10b981"/>
+        <stop offset="100%" stop-color="#6366f1"/>
+      </linearGradient>
+    </defs>
+  </svg>
+
+  <script src="main.js"></script>
+</body>
+</html>
