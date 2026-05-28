@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0",
-  "updated": "2026-05-28T13:26:32.987Z",
+  "updated": "2026-05-28T13:26:43.741Z",
   "articles": [
     {
       "slug": "ai-product-three-dimensions",
@@ -64,16 +64,6 @@
       "readingTime": "1min"
     },
     {
-      "slug": "test-vditor2",
-      "title": "真实测试",
-      "date": "2026-05-28",
-      "tags": [
-        "AI产品"
-      ],
-      "excerpt": "真实测试",
-      "readingTime": "1min"
-    },
-    {
       "slug": "test-pic",
       "title": "test-pic",
       "date": "2026-05-28",
@@ -93,6 +83,16 @@
       "excerpt": "更新测试摘要",
       "readingTime": "1min",
       "pinned": false
+    },
+    {
+      "slug": "test-vditor2",
+      "title": "真实测试",
+      "date": "2026-05-28",
+      "tags": [
+        "AI产品"
+      ],
+      "excerpt": "真实测试",
+      "readingTime": "1min"
     }
   ]
 }
