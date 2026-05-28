@@ -1,17 +1,7 @@
 {
   "schemaVersion": "1.0",
-  "updated": "2026-05-28T13:51:46.534Z",
+  "updated": "2026-05-28T13:53:26.062Z",
   "articles": [
-    {
-      "slug": "ai-thinking-trap",
-      "title": "AI 时代的思考陷阱：你是在思考，还是在被思考？",
-      "date": "2026-05-28",
-      "tags": [
-        "AI哲学"
-      ],
-      "excerpt": "",
-      "readingTime": "1min"
-    },
     {
       "slug": "product-sense-vs-prompt",
       "title": "Prompt 写得好 ≠ 产品感好",
