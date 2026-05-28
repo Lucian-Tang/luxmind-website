@@ -1,18 +1,5 @@
 {
   "schemaVersion": "1.0",
-  "updated": "2026-05-28T13:54:54.572Z",
-  "articles": [
-    {
-      "slug": "test",
-      "title": "test",
-      "date": "2026-05-28",
-      "tags": [
-        "AI其他"
-      ],
-      "excerpt": "test",
-      "readingTime": "1min",
-      "pinned": true,
-      "pinnedAt": "2026-05-28T13:54:54.572Z"
-    }
-  ]
+  "updated": "2026-05-28T13:55:18.491Z",
+  "articles": []
 }
