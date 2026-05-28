@@ -1,12 +1,12 @@
 {
   "slug": "test-vditor2",
-  "title": "真实测试",
+  "title": "Test Updated",
   "date": "2026-05-28",
-  "updatedAt": "2026-05-28T13:26:41.916Z",
+  "updatedAt": "2026-05-28T13:28:21.089Z",
   "tags": [
-    "AI产品"
+    "AI杂谈"
   ],
-  "excerpt": "真实测试",
-  "content": "# 测试文章\n\n这是段落一。\n\n另一个段落。\n\n- 列表项1\n- 列表项2\n\n> 引用行\n\n`代码行`\n",
+  "excerpt": "Updated excerpt",
+  "content": "# Updated\n\nTest content.",
   "readingTime": "1min"
 }
