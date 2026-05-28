@@ -1,5 +1,16 @@
 {
   "schemaVersion": "1.0",
-  "updated": "2026-05-28T13:53:39.645Z",
-  "articles": []
+  "updated": "2026-05-28T13:54:17.946Z",
+  "articles": [
+    {
+      "slug": "test",
+      "title": "test",
+      "date": "2026-05-28",
+      "tags": [
+        "AI其他"
+      ],
+      "excerpt": "test",
+      "readingTime": "1min"
+    }
+  ]
 }
