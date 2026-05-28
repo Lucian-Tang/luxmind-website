@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0",
-  "updated": "2026-05-28T14:51:34.353Z",
+  "updated": "2026-05-28T14:51:49.439Z",
   "articles": [
     {
       "slug": "ai-agent-design-philosophy",
@@ -11,8 +11,7 @@
       ],
       "excerpt": "做了两年 AI 产品，踩了无数坑之后，我总结了一套自己的产品哲学框架。核心就一句话：不要把 AI Agent 当工具用，把它当刚入职的实习生。",
       "readingTime": "6min",
-      "pinned": true,
-      "pinnedAt": "2026-05-28T14:51:27.697Z"
+      "pinned": false
     },
     {
       "slug": "欢迎大家来到淬言",
