@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0",
-  "updated": "2026-05-28T13:32:10.589Z",
+  "updated": "2026-05-28T13:33:57.521Z",
   "articles": [
     {
       "slug": "ai-product-three-dimensions",
@@ -41,16 +41,6 @@
         "AI杂谈"
       ],
       "excerpt": "Test",
-      "readingTime": "1min"
-    },
-    {
-      "slug": "淬言论坛kickoff",
-      "title": "淬言论坛KickOFF",
-      "date": "2026-05-28",
-      "tags": [
-        "AI杂谈"
-      ],
-      "excerpt": "论坛KO",
       "readingTime": "1min"
     },
     {
