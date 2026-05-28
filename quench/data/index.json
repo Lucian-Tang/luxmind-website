@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0",
-  "updated": "2026-05-28T13:33:57.521Z",
+  "updated": "2026-05-28T13:34:29.697Z",
   "articles": [
     {
       "slug": "ai-product-three-dimensions",
@@ -75,7 +75,8 @@
       ],
       "excerpt": "更新测试摘要",
       "readingTime": "1min",
-      "pinned": false
+      "pinned": true,
+      "pinnedAt": "2026-05-28T13:34:29.697Z"
     },
     {
       "slug": "test-vditor2",
