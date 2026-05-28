@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0",
-  "updated": "2026-05-28T13:26:18.358Z",
+  "updated": "2026-05-28T13:26:26.932Z",
   "articles": [
     {
       "slug": "ai-product-three-dimensions",
@@ -11,18 +11,6 @@
       ],
       "excerpt": "做AI产品最难的不是技术选型，而是判断。本文从需求真伪、技术边界、用户体验、商业模式、团队基因五个维度展开。",
       "readingTime": "6min"
-    },
-    {
-      "slug": "ai-philosophy-consciousness",
-      "title": "大模型有意识吗？一个产品视角的思考",
-      "date": "2026-05-28",
-      "tags": [
-        "AI哲学"
-      ],
-      "excerpt": "每次GPT出新版本，社交媒体就吵一轮\"AI有没有意识\"。作为产品人，我想从一个更务实的角度聊聊这个话题。",
-      "readingTime": "4min",
-      "pinned": true,
-      "pinnedAt": "2026-05-28T13:26:18.358Z"
     },
     {
       "slug": "ai-tech-trend-memo",
@@ -94,6 +82,18 @@
       ],
       "excerpt": "sdta",
       "readingTime": "1min"
+    },
+    {
+      "slug": "ai-philosophy-consciousness",
+      "title": "大模型有意识吗？一个产品视角的思考",
+      "date": "2026-05-28",
+      "tags": [
+        "AI哲学"
+      ],
+      "excerpt": "更新测试摘要",
+      "readingTime": "1min",
+      "pinned": true,
+      "pinnedAt": "2026-05-28T13:26:18.358Z"
     }
   ]
 }
