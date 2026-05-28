@@ -315,7 +315,7 @@ async function publish() {
   showStatus('status', '');
 
   try {
-    const res = await fetch('http://localhost:3005/api/article', {
+    const res = await fetch('http://170.106.75.214:3005/api/article', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

@@ -394,6 +394,27 @@
   </svg>
 
   <script src="main.js"></script>
+<script>
+// Site visit counter (CDN-based, no mixed content)
+(function(){
+  const el = document.getElementById("siteVisits");
+  if(!el) return;
+  // Read from CDN (always works over HTTPS)
+  fetch("https://luxmind.cn/quench/data/views.json")
+    .then(r=>r.json())
+    .then(d=>{
+      const total = d._site_total || 0;
+      el.textContent = "👁 " + total.toLocaleString() + " 次访问";
+      // Increment via a hidden image request (works cross-origin)
+      if(!sessionStorage.getItem("vc")) {
+        sessionStorage.setItem("vc","1");
+        new Image().src = "http://170.106.75.214:3005/api/site-visits?v=" + Date.now();
+      }
+    })
+    .catch(()=>{ el.textContent = ""; });
+})();
+</script>
+
 </body>
 </html>
 
