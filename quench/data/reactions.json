@@ -6,5 +6,9 @@
   "ai-philosophy-consciousness": {
     "like": 1,
     "dislike": 0
+  },
+  "ai-tech-trend-memo": {
+    "like": 0,
+    "dislike": 1
   }
 }
