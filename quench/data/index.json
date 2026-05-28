@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0",
-  "updated": "2026-05-28T13:51:35.580Z",
+  "updated": "2026-05-28T13:51:39.152Z",
   "articles": [
     {
       "slug": "ai-thinking-trap",
@@ -8,6 +8,16 @@
       "date": "2026-05-28",
       "tags": [
         "AI哲学"
+      ],
+      "excerpt": "",
+      "readingTime": "1min"
+    },
+    {
+      "slug": "product-sense-vs-prompt",
+      "title": "Prompt 写得好 ≠ 产品感好",
+      "date": "2026-05-28",
+      "tags": [
+        "AI产品"
       ],
       "excerpt": "",
       "readingTime": "1min"
