@@ -1,0 +1,11 @@
+{
+  "slug": "test-article",
+  "title": "测试文章",
+  "date": "2026-05-28",
+  "tags": [
+    "AI杂谈"
+  ],
+  "excerpt": "Test",
+  "content": "Hello World",
+  "readingTime": "1min"
+}
