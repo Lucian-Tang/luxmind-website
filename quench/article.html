@@ -57,6 +57,10 @@
       max-width: 800px; margin: 0 auto; padding: 40px 24px 60px;
     }
     .article-header { margin-bottom: 40px; }
+    .article-header .excerpt {
+      color: var(--text-dim); font-size: 15px; margin-top: 12px;
+      line-height: 1.6;
+    }
     .article-header .meta {
       display: flex; align-items: center; gap: 12px; margin-bottom: 16px;
       font-size: 14px; color: var(--text-muted); flex-wrap: wrap;
@@ -105,6 +109,25 @@
     }
     .article-content hr { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
     .article-content img { max-width: 100%; border-radius: var(--radius); }
+
+    /* Actions (Like/Dislike/Contact) */
+    .article-actions {
+      display: flex; gap: 12px; align-items: center;
+      margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
+    .action-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 8px 20px; border-radius: 24px; border: 1px solid var(--border);
+      background: var(--bg-card); color: var(--text-dim);
+      font-size: 14px; cursor: pointer; transition: all 0.2s; text-decoration: none;
+    }
+    .action-btn:hover { border-color: var(--accent); color: var(--text); }
+    .action-btn.active { border-color: var(--accent); background: var(--tag-bg); }
+    .like-btn.active { border-color: #22c55e; color: #22c55e; background: rgba(34,197,94,0.1); }
+    .dislike-btn.active { border-color: #ef4444; color: #ef4444; background: rgba(239,68,68,0.1); }
+    .contact-btn { margin-left: auto; }
+    .contact-btn:hover { border-color: #3b82f6; color: #3b82f6; }
 
     /* Footer */
     .article-footer {
@@ -177,10 +200,14 @@
   } catch(e) {}
 
   // Load views
-  let views = {};
+  let views = {}, reactions = {};
   try {
     const vr = await fetch('/quench/data/views.json');
     if (vr.ok) views = await vr.json();
+  } catch(e) {}
+  try {
+    const rr = await fetch('/quench/data/reactions.json');
+    if (rr.ok) reactions = await rr.json();
   } catch(e) {}
 
   // Load article
@@ -192,6 +219,7 @@
     document.title = article.title + ' — 淬言';
     const tagBadges = (article.tags || []).map(t => `<span class="tag-badge">${t}</span>`).join(' ');
     const viewCount = views[slug] || 0;
+    const r = reactions[slug] || { like: 0, dislike: 0 };
     const htmlContent = typeof marked !== 'undefined' ? marked.parse(article.content) : article.content.replace(/\n/g, '<br>');
 
     articleEl.innerHTML = `
@@ -204,8 +232,14 @@
           <span>⏱ ${article.readingTime || '?'}</span>
         </div>
         <h1>${article.title}</h1>
+        <div class="article-excerpt">${article.excerpt || ''}</div>
       </div>
       <div class="article-content">${htmlContent}</div>
+      <div class="article-actions">
+        <button class="action-btn like-btn" onclick="react('like')">👍 <span id="likeCount">${r.like}</span></button>
+        <button class="action-btn dislike-btn" onclick="react('dislike')">👎 <span id="dislikeCount">${r.dislike}</span></button>
+        <a class="action-btn contact-btn" href="mailto:lucian_tang@163.com?subject=淬言·${encodeURIComponent(article.title)}">✉️ 联系作者</a>
+      </div>
       <div class="article-footer">
         <span>👁 ${viewCount} 次阅读</span>
         <span>© Luxmind 淬言</span>
@@ -214,6 +248,19 @@
   } catch(e) {
     articleEl.innerHTML = '<div class="error"><p>文章加载失败：' + e.message + '</p></div>';
   }
+})();
+
+// Reaction helper
+function react(type) {
+  const slug = new URLSearchParams(location.search).get('slug');
+  if (!slug) return;
+  const btn = document.querySelector('.' + type + '-btn');
+  if (btn && btn.classList.contains('active')) return;
+  if (btn) btn.classList.add('active');
+  const span = document.getElementById(type + 'Count');
+  if (span) span.textContent = parseInt(span.textContent) + 1;
+  fetch('http://170.106.75.214:3005/api/react/' + slug + '/' + type);
+}
 })();
 </script>
 
