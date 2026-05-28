@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0",
-  "updated": "2026-05-28T13:51:42.791Z",
+  "updated": "2026-05-28T13:51:46.534Z",
   "articles": [
     {
       "slug": "ai-thinking-trap",
@@ -28,6 +28,16 @@
       "date": "2026-05-28",
       "tags": [
         "AI杂谈"
+      ],
+      "excerpt": "",
+      "readingTime": "1min"
+    },
+    {
+      "slug": "ai-poetry-and-soul",
+      "title": "当 AI 学会写诗：技术越进步，人文越值钱",
+      "date": "2026-05-28",
+      "tags": [
+        "AI哲学"
       ],
       "excerpt": "",
       "readingTime": "1min"
