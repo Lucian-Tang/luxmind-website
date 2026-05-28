@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0",
-  "updated": "2026-05-28T13:09:41.671Z",
+  "updated": "2026-05-28T13:11:27.038Z",
   "articles": [
     {
       "slug": "ai-product-three-dimensions",
@@ -70,6 +70,16 @@
         "AI杂谈"
       ],
       "excerpt": "Vditor publish test",
+      "readingTime": "1min"
+    },
+    {
+      "slug": "test-vditor2",
+      "title": "真实测试",
+      "date": "2026-05-28",
+      "tags": [
+        "AI产品"
+      ],
+      "excerpt": "真实测试",
       "readingTime": "1min"
     }
   ]
