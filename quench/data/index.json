@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0",
-  "updated": "2026-05-28T13:42:20.120Z",
+  "updated": "2026-05-28T13:42:30.567Z",
   "articles": [
     {
       "slug": "ai-product-three-dimensions",
@@ -20,16 +20,6 @@
         "AI杂谈"
       ],
       "excerpt": "产品KO",
-      "readingTime": "1min"
-    },
-    {
-      "slug": "test",
-      "title": "测试文章",
-      "date": "2026-05-28",
-      "tags": [
-        "AI杂谈"
-      ],
-      "excerpt": "Test",
       "readingTime": "1min"
     },
     {
