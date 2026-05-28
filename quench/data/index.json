@@ -1,5 +1,16 @@
 {
   "schemaVersion": "1.0",
-  "updated": "2026-05-28T13:49:08.284Z",
-  "articles": []
+  "updated": "2026-05-28T13:51:35.580Z",
+  "articles": [
+    {
+      "slug": "ai-thinking-trap",
+      "title": "AI 时代的思考陷阱：你是在思考，还是在被思考？",
+      "date": "2026-05-28",
+      "tags": [
+        "AI哲学"
+      ],
+      "excerpt": "",
+      "readingTime": "1min"
+    }
+  ]
 }
