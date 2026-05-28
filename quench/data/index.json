@@ -1,16 +1,5 @@
 {
   "schemaVersion": "1.0",
-  "updated": "2026-05-28T13:47:45.883Z",
-  "articles": [
-    {
-      "slug": "ai-product-three-dimensions",
-      "title": "AI产品判断的五个维度",
-      "date": "2026-05-28",
-      "tags": [
-        "AI产品"
-      ],
-      "excerpt": "做AI产品最难的不是技术选型，而是判断。本文从需求真伪、技术边界、用户体验、商业模式、团队基因五个维度展开。",
-      "readingTime": "6min"
-    }
-  ]
+  "updated": "2026-05-28T13:49:08.284Z",
+  "articles": []
 }
