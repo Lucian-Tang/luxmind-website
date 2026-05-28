@@ -302,32 +302,38 @@
 <div class="edit-entry" onclick="showAuth()" title="写文章">✏️</div>
 
 <script>
+// Client-side auth (SHA256 hash, no mixed content)
+const AUTH_HASH = '95ba678abc03e65eb5f675505888d4da17a5d1329cdc40751c31d256d55bf377';
+
 function showAuth() {
   document.getElementById('authOverlay').classList.add('active');
   document.getElementById('authPass').focus();
 }
-function openEditor() {
+
+async function openEditor() {
   const pass = document.getElementById('authPass').value;
   const errEl = document.getElementById('authError');
-  fetch('http://170.106.75.214:3005/api/auth', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ password: pass })
-  })
-  .then(r => r.json())
-  .then(data => {
-    if (data.success) {
+  errEl.style.display = 'none';
+  try {
+    const hash = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(pass))
+      .then(h => Array.from(new Uint8Array(h)).map(b => b.toString(16).padStart(2,'0')).join(''));
+    if (hash === AUTH_HASH) {
       sessionStorage.setItem('quench_auth', '1');
       window.location.href = '/quench/edit.html';
     } else {
       errEl.style.display = 'block';
       document.getElementById('authPass').value = '';
     }
-  })
-  .catch(() => {
-    errEl.textContent = '网络错误';
-    errEl.style.display = 'block';
-  });
+  } catch(e) {
+    // Fallback for old browsers: simple comparison
+    if (pass === 'luxmind2026') {
+      sessionStorage.setItem('quench_auth', '1');
+      window.location.href = '/quench/edit.html';
+    } else {
+      errEl.style.display = 'block';
+      document.getElementById('authPass').value = '';
+    }
+  }
 }
 </script>
 
