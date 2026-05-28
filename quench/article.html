@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>淬言 — 文章详情</title>
+  <meta name="description" content="淬言文章详情">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/github-dark.min.css">
+  <style>
+    :root {
+      --bg: #0a0a0b;
+      --bg-card: #141416;
+      --border: #2a2a2e;
+      --text: #e4e4e7;
+      --text-dim: #71717a;
+      --text-muted: #52525c;
+      --accent: #a78bfa;
+      --accent-2: #6366f1;
+      --tag-bg: #1a1525;
+      --tag-text: #a78bfa;
+      --radius: 12px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.8;
+      min-height: 100vh;
+    }
+
+    .nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(10, 10, 11, 0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      max-width: 800px; margin: 0 auto; padding: 0 24px;
+      display: flex; align-items: center; justify-content: space-between; height: 60px;
+    }
+    .nav-back {
+      color: var(--text-dim); text-decoration: none; font-size: 14px;
+      transition: color 0.2s;
+    }
+    .nav-back:hover { color: var(--text); }
+    .nav-home {
+      color: var(--text-dim); text-decoration: none; font-size: 14px;
+      transition: color 0.2s;
+    }
+    .nav-home:hover { color: var(--text); }
+
+    /* Article */
+    .article {
+      max-width: 800px; margin: 0 auto; padding: 40px 24px 60px;
+    }
+    .article-header { margin-bottom: 40px; }
+    .article-header .meta {
+      display: flex; align-items: center; gap: 12px; margin-bottom: 16px;
+      font-size: 14px; color: var(--text-muted); flex-wrap: wrap;
+    }
+    .article-header .meta .dot {
+      width: 3px; height: 3px; border-radius: 50%; background: var(--text-muted);
+    }
+    .article-header h1 {
+      font-size: 36px; font-weight: 800; letter-spacing: -0.02em;
+      line-height: 1.25; margin-bottom: 8px;
+    }
+
+    .tag-badge {
+      display: inline-block; padding: 2px 10px; border-radius: 12px;
+      background: var(--tag-bg); color: var(--tag-text); font-size: 12px;
+      font-weight: 500;
+    }
+
+    /* Content */
+    .article-content {
+      font-size: 17px; line-height: 1.85; color: #d4d4d8;
+    }
+    .article-content h1 { font-size: 28px; font-weight: 700; margin: 48px 0 16px; color: #fff; }
+    .article-content h2 { font-size: 24px; font-weight: 700; margin: 40px 0 14px; color: #f4f4f5; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+    .article-content h3 { font-size: 20px; font-weight: 600; margin: 32px 0 12px; color: #f4f4f5; }
+    .article-content p { margin: 14px 0; }
+    .article-content strong { color: #fff; font-weight: 600; }
+    .article-content ul, .article-content ol { margin: 12px 0; padding-left: 24px; }
+    .article-content li { margin: 6px 0; }
+    .article-content blockquote {
+      border-left: 3px solid var(--accent); padding: 12px 20px; margin: 20px 0;
+      background: var(--bg-card); border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      color: var(--text-dim); font-style: italic;
+    }
+    .article-content code {
+      background: #1e1e24; padding: 2px 8px; border-radius: 4px;
+      font-size: 14px; font-family: 'SF Mono', 'Fira Code', monospace;
+    }
+    .article-content pre {
+      background: #1a1a1e; border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 20px 24px; overflow-x: auto;
+      margin: 20px 0; font-size: 14px; line-height: 1.6;
+    }
+    .article-content pre code {
+      background: none; padding: 0; font-size: inherit;
+    }
+    .article-content hr { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
+    .article-content img { max-width: 100%; border-radius: var(--radius); }
+
+    /* Footer */
+    .article-footer {
+      margin-top: 60px; padding-top: 24px; border-top: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      color: var(--text-muted); font-size: 14px;
+    }
+
+    /* Loading / Error */
+    .loading, .error {
+      text-align: center; padding: 100px 20px; color: var(--text-muted);
+    }
+    .spinner {
+      display: inline-block; width: 24px; height: 24px; border: 2px solid var(--border);
+      border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite;
+      margin-bottom: 8px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    @media (max-width: 640px) {
+      .article-header h1 { font-size: 26px; }
+      .article-content { font-size: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="/quench/" class="nav-back">← 返回列表</a>
+    <a href="/" class="nav-home">首页</a>
+  </div>
+</nav>
+
+<main class="article" id="article">
+  <div class="loading"><div class="spinner"></div><p>加载中…</p></div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/lib/highlight.min.js"></script>
+<script>
+(async function() {
+  const params = new URLSearchParams(window.location.search);
+  const slug = params.get('slug');
+
+  if (!slug) {
+    document.getElementById('article').innerHTML = '<div class="error"><p>缺少文章 slug 参数</p></div>';
+    return;
+  }
+
+  // Configure marked
+  if (typeof marked !== 'undefined') {
+    marked.setOptions({
+      breaks: true,
+      gfm: true,
+      highlight: function(code, lang) {
+        if (typeof hljs !== 'undefined' && lang && hljs.getLanguage(lang)) {
+          try { return hljs.highlight(code, { language: lang }).value; } catch(e) {}
+        }
+        return code;
+      }
+    });
+  }
+
+  const articleEl = document.getElementById('article');
+
+  // Track view
+  try {
+    fetch('http://localhost:3005/api/view/' + slug).catch(() => {});
+  } catch(e) {}
+
+  // Load views
+  let views = {};
+  try {
+    const vr = await fetch('/quench/data/views.json');
+    if (vr.ok) views = await vr.json();
+  } catch(e) {}
+
+  // Load article
+  try {
+    const res = await fetch('/quench/articles/' + slug + '.json');
+    if (!res.ok) throw new Error('Article not found');
+    const article = await res.json();
+
+    document.title = article.title + ' — 淬言';
+    const tagBadges = (article.tags || []).map(t => `<span class="tag-badge">${t}</span>`).join(' ');
+    const viewCount = views[slug] || 0;
+    const htmlContent = typeof marked !== 'undefined' ? marked.parse(article.content) : article.content.replace(/\n/g, '<br>');
+
+    articleEl.innerHTML = `
+      <div class="article-header">
+        <div class="meta">
+          ${tagBadges}
+          <span class="dot"></span>
+          <span>${article.date}</span>
+          <span class="dot"></span>
+          <span>⏱ ${article.readingTime || '?'}</span>
+        </div>
+        <h1>${article.title}</h1>
+      </div>
+      <div class="article-content">${htmlContent}</div>
+      <div class="article-footer">
+        <span>👁 ${viewCount} 次阅读</span>
+        <span>© Luxmind 淬言</span>
+      </div>
+    `;
+  } catch(e) {
+    articleEl.innerHTML = '<div class="error"><p>文章加载失败：' + e.message + '</p></div>';
+  }
+})();
+</script>
+
+</body>
+</html>

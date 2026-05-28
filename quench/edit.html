@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>淬言 — 编辑器</title>
+  <style>
+    :root {
+      --bg: #0a0a0b;
+      --bg-card: #141416;
+      --bg-input: #1a1a1e;
+      --border: #2a2a2e;
+      --border-focus: #a78bfa;
+      --text: #e4e4e7;
+      --text-dim: #71717a;
+      --accent: #a78bfa;
+      --accent-2: #6366f1;
+      --danger: #ef4444;
+      --success: #10b981;
+      --radius: 12px;
+      --radius-sm: 8px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    .nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(10, 10, 11, 0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      max-width: 1100px; margin: 0 auto; padding: 0 24px;
+      display: flex; align-items: center; justify-content: space-between; height: 60px;
+    }
+    .nav-title {
+      font-size: 18px; font-weight: 700;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .nav-links { display: flex; gap: 16px; }
+    .nav-links a {
+      color: var(--text-dim); text-decoration: none; font-size: 14px;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    /* Editor */
+    .editor-container {
+      max-width: 1100px; margin: 0 auto; padding: 32px 24px 60px;
+    }
+    .editor-header { margin-bottom: 32px; }
+    .editor-header h1 { font-size: 28px; font-weight: 700; margin-bottom: 4px; }
+    .editor-header p { color: var(--text-dim); font-size: 14px; }
+
+    /* Form */
+    .form-row {
+      display: flex; gap: 16px; margin-bottom: 20px; flex-wrap: wrap;
+    }
+    .form-group { flex: 1; min-width: 200px; }
+    .form-group label {
+      display: block; font-size: 13px; font-weight: 500; color: var(--text-dim);
+      margin-bottom: 6px;
+    }
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%; padding: 10px 14px; border: 1px solid var(--border);
+      border-radius: var(--radius-sm); background: var(--bg-input);
+      color: var(--text); font-size: 14px; font-family: inherit;
+      transition: border-color 0.2s; outline: none;
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      border-color: var(--border-focus);
+    }
+    .form-group select { appearance: none; cursor: pointer; }
+    .form-group textarea { resize: vertical; min-height: 80px; }
+
+    /* Editor panels */
+    .editor-panels {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;
+    }
+    .panel {
+      border: 1px solid var(--border); border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .panel-header {
+      padding: 10px 16px; background: var(--bg-card); border-bottom: 1px solid var(--border);
+      font-size: 13px; font-weight: 600; color: var(--text-dim); text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .panel-body { padding: 16px; }
+    .panel-body textarea {
+      width: 100%; height: 400px; border: none; background: transparent;
+      color: var(--text); font-size: 14px; font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+      line-height: 1.7; resize: none; outline: none;
+    }
+
+    /* Preview */
+    .preview-content {
+      height: 400px; overflow-y: auto; font-size: 15px; line-height: 1.8;
+      color: #d4d4d8;
+    }
+    .preview-content h1 { font-size: 24px; margin: 16px 0 8px; color: #fff; }
+    .preview-content h2 { font-size: 20px; margin: 14px 0 6px; color: #f4f4f5; border-bottom: 1px solid var(--border); padding-bottom: 6px; }
+    .preview-content h3 { font-size: 17px; margin: 12px 0 4px; color: #f4f4f5; }
+    .preview-content p { margin: 8px 0; }
+    .preview-content strong { color: #fff; }
+    .preview-content ul, .preview-content ol { padding-left: 24px; margin: 8px 0; }
+    .preview-content li { margin: 4px 0; }
+    .preview-content blockquote {
+      border-left: 3px solid var(--accent); padding: 8px 16px; margin: 12px 0;
+      background: var(--bg-card); border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      color: var(--text-dim); font-style: italic;
+    }
+    .preview-content code {
+      background: #1e1e24; padding: 1px 6px; border-radius: 4px;
+      font-size: 13px; font-family: 'SF Mono', monospace;
+    }
+    .preview-content pre {
+      background: #1a1a1e; border: 1px solid var(--border);
+      border-radius: var(--radius-sm); padding: 16px; overflow-x: auto;
+      margin: 12px 0; font-size: 13px;
+    }
+    .preview-content pre code {
+      background: none; padding: 0; font-size: inherit;
+    }
+
+    /* Actions */
+    .editor-actions {
+      display: flex; gap: 12px; align-items: center; justify-content: flex-end;
+    }
+    .btn {
+      padding: 10px 24px; border-radius: var(--radius-sm); font-size: 14px;
+      font-weight: 600; cursor: pointer; transition: all 0.2s;
+      border: none; font-family: inherit;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent-2), var(--accent));
+      color: #fff;
+    }
+    .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
+    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    .btn-ghost {
+      background: transparent; border: 1px solid var(--border); color: var(--text-dim);
+    }
+    .btn-ghost:hover { border-color: var(--text-dim); color: var(--text); }
+
+    /* Status */
+    .status {
+      margin-top: 16px; padding: 12px 16px; border-radius: var(--radius-sm);
+      font-size: 14px; display: none;
+    }
+    .status.success { display: block; background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.3); color: var(--success); }
+    .status.error { display: block; background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.3); color: var(--danger); }
+    .status a { color: var(--accent); }
+
+    @media (max-width: 768px) {
+      .editor-panels { grid-template-columns: 1fr; }
+      .form-row { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <span class="nav-title">淬言 · 编辑器</span>
+    <div class="nav-links">
+      <a href="/quench/">列表</a>
+      <a href="/">首页</a>
+    </div>
+  </div>
+</nav>
+
+<main class="editor-container">
+  <div class="editor-header">
+    <h1>✍️ 写文章</h1>
+    <p>用 Markdown 写作，右侧实时预览。发布后自动同步到 luxmind.cn。</p>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group" style="flex:2">
+      <label for="title">标题 *</label>
+      <input type="text" id="title" placeholder="输入文章标题…">
+    </div>
+    <div class="form-group" style="flex:1">
+      <label for="tag">主题 *</label>
+      <select id="tag">
+        <option value="">选择主题…</option>
+        <option value="AI哲学">AI哲学</option>
+        <option value="AI产品">AI产品</option>
+        <option value="AI杂谈">AI杂谈</option>
+        <option value="AI其他">AI其他</option>
+      </select>
+    </div>
+    <div class="form-group" style="flex:2">
+      <label for="slug">Slug（URL 标识）</label>
+      <input type="text" id="slug" placeholder="自动生成或手动输入…">
+    </div>
+  </div>
+
+  <div class="form-group" style="margin-bottom:20px">
+    <label for="excerpt">摘要</label>
+    <textarea id="excerpt" placeholder="简短描述这篇文章…"></textarea>
+  </div>
+
+  <div class="editor-panels">
+    <div class="panel">
+      <div class="panel-header">Markdown 编辑</div>
+      <div class="panel-body">
+        <textarea id="editor" placeholder="# 开始写作…"></textarea>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-header">实时预览</div>
+      <div class="panel-body">
+        <div class="preview-content" id="preview"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="editor-actions">
+    <button class="btn btn-ghost" onclick="resetForm()">清空</button>
+    <button class="btn btn-primary" id="publishBtn" onclick="publish()">发布文章</button>
+  </div>
+
+  <div class="status" id="status"></div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script>
+// Auto-generate slug from title (basic pinyin approximation)
+function generateSlug(title) {
+  // Simple: lowercase, replace spaces/special chars with hyphens
+  // For Chinese titles, use a simple hash or manual entry
+  return title
+    .toLowerCase()
+    .replace(/[^\w\u4e00-\u9fff\s-]/g, '')
+    .replace(/[\s_]+/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '')
+    .substring(0, 60);
+}
+
+// Live preview
+const editor = document.getElementById('editor');
+const preview = document.getElementById('preview');
+const titleInput = document.getElementById('title');
+const slugInput = document.getElementById('slug');
+
+function updatePreview() {
+  if (typeof marked !== 'undefined') {
+    preview.innerHTML = marked.parse(editor.value || '*开始输入 Markdown…*');
+  }
+}
+
+editor.addEventListener('input', updatePreview);
+
+// Auto slug from title
+titleInput.addEventListener('input', function() {
+  if (!slugInput.dataset.manual) {
+    slugInput.value = generateSlug(this.value);
+  }
+});
+
+slugInput.addEventListener('input', function() {
+  slugInput.dataset.manual = 'true';
+});
+
+function showStatus(type, message) {
+  const el = document.getElementById('status');
+  el.className = 'status ' + type;
+  el.innerHTML = message;
+}
+
+function resetForm() {
+  document.getElementById('title').value = '';
+  document.getElementById('tag').value = '';
+  document.getElementById('slug').value = '';
+  document.getElementById('excerpt').value = '';
+  editor.value = '';
+  preview.innerHTML = '<p style="color:#71717a">开始输入 Markdown…</p>';
+  document.getElementById('status').className = 'status';
+  delete slugInput.dataset.manual;
+}
+
+async function publish() {
+  const title = titleInput.value.trim();
+  const tag = document.getElementById('tag').value;
+  const slug = slugInput.value.trim();
+  const excerpt = document.getElementById('excerpt').value.trim();
+  const content = editor.value.trim();
+  const btn = document.getElementById('publishBtn');
+
+  if (!title || !tag || !slug || !content) {
+    showStatus('error', '请填写标题、主题、slug 和正文');
+    return;
+  }
+
+  if (!/^[a-z0-9-]+$/.test(slug)) {
+    showStatus('error', 'Slug 只能包含小写字母、数字和连字符');
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = '发布中…';
+  showStatus('status', '');
+
+  try {
+    const res = await fetch('http://localhost:3005/api/article', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        slug,
+        title,
+        content,
+        tags: [tag],
+        excerpt: excerpt || content.substring(0, 120).replace(/#/g, ''),
+      }),
+    });
+
+    const data = await res.json();
+
+    if (data.success) {
+      showStatus('success', `✅ 发布成功！查看文章：<a href="/quench/article.html?slug=${slug}" target="_blank">${title}</a>`);
+      // Auto-redirect after 2s
+      setTimeout(() => {
+        window.location.href = '/quench/article.html?slug=' + slug;
+      }, 2000);
+    } else {
+      showStatus('error', '发布失败：' + (data.error || '未知错误'));
+    }
+  } catch(e) {
+    showStatus('error', '网络错误：' + e.message + '（确保 quench-api 正在运行）');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '发布文章';
+  }
+}
+
+// Initial preview
+updatePreview();
+</script>
+
+</body>
+</html>

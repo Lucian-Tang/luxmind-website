@@ -1,0 +1,9 @@
+{
+  "schemaVersion": "1.0",
+  "updated": "2026-05-28T18:00:00+08:00",
+  "articles": [
+    {"slug": "ai-product-three-dimensions", "title": "AI产品判断的五个维度", "date": "2026-05-28", "tags": ["AI产品"], "excerpt": "做AI产品最难的不是技术选型，而是判断。本文从需求真伪、技术边界、用户体验、商业模式、团队基因五个维度展开。", "readingTime": "6min"},
+    {"slug": "ai-philosophy-consciousness", "title": "大模型有意识吗？一个产品视角的思考", "date": "2026-05-28", "tags": ["AI哲学"], "excerpt": "每次GPT出新版本，社交媒体就吵一轮\"AI有没有意识\"。作为产品人，我想从一个更务实的角度聊聊这个话题。", "readingTime": "4min"},
+    {"slug": "ai-tech-trend-memo", "title": "2026上半年AI圈观察备忘录", "date": "2026-05-28", "tags": ["AI杂谈"], "excerpt": "2026年已经过半，AI圈发生了太多事。从模型竞赛到产品落地，从开源生态到监管风暴，一份个人观察备忘录。", "readingTime": "8min"}
+  ]
+}
