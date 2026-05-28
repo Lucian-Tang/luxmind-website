@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0",
-  "updated": "2026-05-28T13:27:44.805Z",
+  "updated": "2026-05-28T13:28:08.059Z",
   "articles": [
     {
       "slug": "ai-product-three-dimensions",
@@ -62,7 +62,8 @@
       ],
       "excerpt": "Vditor publish test",
       "readingTime": "1min",
-      "pinned": false
+      "pinned": true,
+      "pinnedAt": "2026-05-28T13:28:08.059Z"
     },
     {
       "slug": "test-pic",
