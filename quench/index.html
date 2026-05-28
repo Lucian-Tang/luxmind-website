@@ -39,7 +39,7 @@
       background: #141416; border: 1px solid #2a2a2e;
       display: flex; align-items: center; justify-content: center;
       cursor: pointer; font-size: 18px; transition: all 0.2s;
-      opacity: 0.5;
+      opacity: 0.9;
     }
     .edit-entry:hover { opacity: 1; border-color: #a78bfa; }
   </style>
@@ -233,11 +233,12 @@
   // Load articles
   try {
     const res = await fetch('/quench/data/index.json');
-    if (!res.ok) throw new Error('Failed to load index');
+    if (!res.ok) throw new Error('Failed to load index (HTTP ' + res.status + ')');
     const data = await res.json();
     articles = data.articles || [];
+    if (articles.length === 0) throw new Error('No articles in index');
   } catch(e) {
-    articlesEl.innerHTML = '<div class="empty"><p>加载文章列表失败</p></div>';
+    articlesEl.innerHTML = '<div class="empty"><p>📭 加载失败: ' + e.message + '</p></div>';
     return;
   }
 
