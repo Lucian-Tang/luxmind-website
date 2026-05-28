@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0",
-  "updated": "2026-05-28T13:51:39.152Z",
+  "updated": "2026-05-28T13:51:42.791Z",
   "articles": [
     {
       "slug": "ai-thinking-trap",
@@ -18,6 +18,16 @@
       "date": "2026-05-28",
       "tags": [
         "AI产品"
+      ],
+      "excerpt": "",
+      "readingTime": "1min"
+    },
+    {
+      "slug": "developer-fomo-2026",
+      "title": "2026 程序员生存指南：不焦虑的活法",
+      "date": "2026-05-28",
+      "tags": [
+        "AI杂谈"
       ],
       "excerpt": "",
       "readingTime": "1min"
