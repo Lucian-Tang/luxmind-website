@@ -1,0 +1,11 @@
+{
+  "slug": "test-vditor",
+  "title": "Vditor测试",
+  "date": "2026-05-28",
+  "tags": [
+    "AI杂谈"
+  ],
+  "excerpt": "Vditor publish test",
+  "content": "# Hello\n\nThis is **bold** and *italic*.\n\nA new paragraph.",
+  "readingTime": "1min"
+}
