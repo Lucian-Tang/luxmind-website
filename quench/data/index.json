@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0",
-  "updated": "2026-05-28T13:34:59.169Z",
+  "updated": "2026-05-28T13:41:05.457Z",
   "articles": [
     {
       "slug": "ai-product-three-dimensions",
@@ -11,17 +11,6 @@
       ],
       "excerpt": "做AI产品最难的不是技术选型，而是判断。本文从需求真伪、技术边界、用户体验、商业模式、团队基因五个维度展开。",
       "readingTime": "6min"
-    },
-    {
-      "slug": "ai-tech-trend-memo",
-      "title": "2026上半年AI圈观察备忘录",
-      "date": "2026-05-28",
-      "tags": [
-        "AI杂谈"
-      ],
-      "excerpt": "2026年已经过半，AI圈发生了太多事。从模型竞赛到产品落地，从开源生态到监管风暴，一份个人观察备忘录。",
-      "readingTime": "8min",
-      "pinned": false
     },
     {
       "slug": "淬言论坛产品kick-off",
