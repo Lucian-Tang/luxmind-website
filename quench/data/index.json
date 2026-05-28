@@ -1,17 +1,7 @@
 {
   "schemaVersion": "1.0",
-  "updated": "2026-05-28T14:48:22.601Z",
+  "updated": "2026-05-28T14:48:25.889Z",
   "articles": [
-    {
-      "slug": "tess",
-      "title": "tess",
-      "date": "2026-05-28",
-      "tags": [
-        "AI产品"
-      ],
-      "excerpt": "肥嘟嘟",
-      "readingTime": "1min"
-    },
     {
       "slug": "ai-agent-design-philosophy",
       "title": "我的 AI 产品哲学框架：Agent 不是工具，是同事",
