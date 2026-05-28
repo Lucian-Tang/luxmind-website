@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0",
-  "updated": "2026-05-28T14:52:02.670Z",
+  "updated": "2026-05-28T14:52:05.139Z",
   "articles": [
     {
       "slug": "ai-agent-design-philosophy",
@@ -22,7 +22,8 @@
       ],
       "excerpt": "如果大家有任何建议或者反馈，可在本帖进行匿名留言~",
       "readingTime": "1min",
-      "pinned": false
+      "pinned": true,
+      "pinnedAt": "2026-05-28T14:52:05.139Z"
     }
   ]
 }
