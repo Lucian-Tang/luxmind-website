@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0",
-  "updated": "2026-05-28T13:26:26.932Z",
+  "updated": "2026-05-28T13:26:32.987Z",
   "articles": [
     {
       "slug": "ai-product-three-dimensions",
@@ -92,8 +92,7 @@
       ],
       "excerpt": "更新测试摘要",
       "readingTime": "1min",
-      "pinned": true,
-      "pinnedAt": "2026-05-28T13:26:18.358Z"
+      "pinned": false
     }
   ]
 }
