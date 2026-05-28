@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0",
-  "updated": "2026-05-28T13:25:56.845Z",
+  "updated": "2026-05-28T13:26:05.240Z",
   "articles": [
     {
       "slug": "ai-product-three-dimensions",
@@ -31,8 +31,7 @@
       ],
       "excerpt": "2026年已经过半，AI圈发生了太多事。从模型竞赛到产品落地，从开源生态到监管风暴，一份个人观察备忘录。",
       "readingTime": "8min",
-      "pinned": true,
-      "pinnedAt": "2026-05-28T13:25:56.845Z"
+      "pinned": false
     },
     {
       "slug": "淬言论坛产品kick-off",
