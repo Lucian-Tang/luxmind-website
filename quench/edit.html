@@ -162,6 +162,31 @@
     .status.error { display: block; background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.3); color: var(--danger); }
     .status a { color: var(--accent); }
 
+    /* Auth Modal */
+    .auth-overlay {
+      position: fixed; inset: 0; z-index: 1000;
+      background: rgba(0,0,0,0.7); display: flex;
+      align-items: center; justify-content: center;
+    }
+    .auth-modal {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 40px; max-width: 380px; width: 90%;
+      text-align: center;
+    }
+    .auth-modal h2 { font-size: 20px; margin-bottom: 4px; }
+    .auth-modal p { color: var(--text-dim); font-size: 14px; margin-bottom: 24px; }
+    .auth-modal input {
+      width: 100%; padding: 12px 16px; border: 1px solid var(--border);
+      border-radius: var(--radius-sm); background: var(--bg-input);
+      color: var(--text); font-size: 16px; text-align: center;
+      outline: none; transition: border-color 0.2s;
+    }
+    .auth-modal input:focus { border-color: var(--accent); }
+    .auth-modal .auth-error {
+      color: var(--danger); font-size: 13px; margin-top: 8px; display: none;
+    }
+    .auth-modal .btn { width: 100%; margin-top: 16px; }
+
     @media (max-width: 768px) {
       .editor-panels { grid-template-columns: 1fr; }
       .form-row { flex-direction: column; }
@@ -169,6 +194,18 @@
   </style>
 </head>
 <body>
+
+<!-- Auth Overlay -->
+<div class="auth-overlay" id="authOverlay">
+  <div class="auth-modal">
+    <h2>🔑 验证身份</h2>
+    <p>输入访问密码以进入编辑器</p>
+    <input type="password" id="authPass" placeholder="输入密码…" autocomplete="off"
+      onkeydown="if(event.key==='Enter') doAuth()">
+    <div class="auth-error" id="authError">密码错误</div>
+    <button class="btn btn-primary" onclick="doAuth()">确认</button>
+  </div>
+</div>
 
 <nav class="nav">
   <div class="nav-inner">
@@ -180,7 +217,7 @@
   </div>
 </nav>
 
-<main class="editor-container">
+<main class="editor-container" id="editorContainer" style="display:none">
   <div class="editor-header">
     <h1>✍️ 写文章</h1>
     <p>用 Markdown 写作，右侧实时预览。发布后自动同步到 luxmind.cn。</p>
@@ -237,6 +274,43 @@
 
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <script>
+// === Auth check ===
+(async function() {
+  // Check if already authenticated this session
+  if (sessionStorage.getItem('quench_auth') === '1') {
+    document.getElementById('authOverlay').style.display = 'none';
+    document.getElementById('editorContainer').style.display = 'block';
+    return;
+  }
+  // Show overlay (editor is hidden by default)
+})();
+
+function doAuth() {
+  const pass = document.getElementById('authPass').value;
+  const errEl = document.getElementById('authError');
+  fetch('http://170.106.75.214:3005/api/auth', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ password: pass })
+  })
+  .then(r => r.json())
+  .then(data => {
+    if (data.success) {
+      sessionStorage.setItem('quench_auth', '1');
+      document.getElementById('authOverlay').style.display = 'none';
+      document.getElementById('editorContainer').style.display = 'block';
+    } else {
+      errEl.style.display = 'block';
+      document.getElementById('authPass').value = '';
+      document.getElementById('authPass').focus();
+    }
+  })
+  .catch(() => {
+    errEl.textContent = '网络错误，无法验证';
+    errEl.style.display = 'block';
+  });
+}
+
 // Auto-generate slug from title (basic pinyin approximation)
 function generateSlug(title) {
   // Simple: lowercase, replace spaces/special chars with hyphens
