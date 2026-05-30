@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>有方 Flow — AI Agent 产品方法论 | Luxmind</title>
+  <meta name="description" content="AI Agent 产品方法论每日认知简报。从任务拆解到工具编排，从提示词到记忆系统，一套可操作的方法论。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌊</text></svg>">
+  <style>
+    :root {
+      --bg-primary: #0a0a0f;
+      --bg-secondary: #111118;
+      --bg-card: #16161f;
+      --bg-card-hover: #1c1c28;
+      --border: rgba(255,255,255,0.06);
+      --border-hover: rgba(255,255,255,0.12);
+      --text-primary: #f1f1f3;
+      --text-secondary: #a1a1aa;
+      --text-tertiary: #71717a;
+      --accent-cyan: #06b6d4;
+      --accent-blue: #3b82f6;
+      --gradient-flow: linear-gradient(135deg,#06b6d4,#3b82f6);
+      --font-sans: 'Inter','Noto Sans SC',-apple-system,BlinkMacSystemFont,sans-serif;
+      --nav-height: 64px;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --ease-out: cubic-bezier(0.16,1,0.3,1);
+    }
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    html{scroll-behavior:smooth;font-size:16px}
+    body{font-family:var(--font-sans);background:var(--bg-primary);color:var(--text-primary);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+    a{color:inherit;text-decoration:none}
+
+    .nav{position:fixed;top:0;left:0;right:0;z-index:100;height:var(--nav-height);background:rgba(10,10,15,0.85);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);box-shadow:0 1px 0 var(--border)}
+    .nav-inner{max-width:1200px;margin:0 auto;padding:0 32px;height:100%;display:flex;align-items:center;justify-content:space-between}
+    .nav-logo{display:flex;align-items:center;gap:8px;font-weight:700}
+    .nav-logo .logo-icon{font-size:20px;line-height:1}
+    .nav-logo .logo-text{font-size:18px;letter-spacing:-0.02em}
+    .nav-logo .logo-sub{font-size:12px;color:var(--text-tertiary);font-weight:500}
+    .nav-links{display:flex;gap:4px}
+    .nav-links a{padding:8px 16px;border-radius:var(--radius-sm);font-size:14px;font-weight:500;color:var(--text-secondary);transition:color .2s,background .2s}
+    .nav-links a:hover{color:var(--text-primary);background:rgba(255,255,255,0.05)}
+    .nav-product-badge{font-size:12px;color:var(--accent-cyan);font-weight:600;letter-spacing:.02em;display:flex;align-items:center;gap:6px}
+
+    main{padding-top:var(--nav-height);min-height:100vh}
+
+    /* Loading */
+    .loading-screen{display:flex;align-items:center;justify-content:center;min-height:calc(100vh - var(--nav-height));flex-direction:column;gap:16px}
+    .loading-spinner{width:36px;height:36px;border:3px solid var(--border);border-top-color:var(--accent-cyan);border-radius:50%;animation:spin .8s linear infinite}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .loading-text{font-size:14px;color:var(--text-tertiary)}
+
+    .error-screen{display:flex;align-items:center;justify-content:center;min-height:calc(100vh - var(--nav-height));flex-direction:column;gap:12px;padding:32px;text-align:center}
+    .error-icon{font-size:48px}
+    .error-text{font-size:16px;color:var(--text-secondary);margin:8px 0}
+
+    /* Today Hero */
+    .today-hero{background:var(--bg-secondary);padding:48px 32px;border-bottom:1px solid var(--border)}
+    .today-hero-inner{max-width:800px;margin:0 auto}
+    .today-label{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-cyan);margin-bottom:12px}
+    .today-title{font-size:clamp(22px,3vw,32px);font-weight:700;letter-spacing:-0.02em;margin-bottom:12px;cursor:pointer;transition:color .2s}
+    .today-title:hover{color:var(--accent-cyan)}
+    .today-thesis{font-size:15px;color:var(--text-secondary);line-height:1.7;margin-bottom:12px;padding:12px 16px;border-left:3px solid var(--accent-cyan);background:rgba(6,182,212,0.04);border-radius:0 var(--radius-sm) var(--radius-sm) 0}
+    .today-toxic{font-size:14px;color:#fbbf24;line-height:1.6;font-style:italic;padding:12px 16px;background:rgba(251,191,36,0.06);border-radius:var(--radius-md);margin-bottom:16px}
+    .today-meta{font-size:13px;color:var(--text-tertiary)}
+    .today-actions{margin-top:16px}
+    .today-actions .btn{margin-right:8px}
+
+    /* Section Header */
+    .section{padding:48px 32px}
+    .section-inner{max-width:900px;margin:0 auto}
+    .section-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;flex-wrap:wrap;gap:12px}
+    .section-title{font-size:20px;font-weight:700;display:flex;align-items:center;gap:8px}
+    .section-categories{display:flex;gap:8px;flex-wrap:wrap}
+    .cat-btn{padding:6px 14px;border-radius:100px;font-size:13px;font-weight:500;border:1px solid var(--border);background:var(--bg-card);color:var(--text-secondary);cursor:pointer;transition:all .2s;font-family:var(--font-sans)}
+    .cat-btn:hover{border-color:var(--border-hover);color:var(--text-primary)}
+    .cat-btn.active{border-color:var(--accent-cyan);color:var(--accent-cyan);background:rgba(6,182,212,0.1)}
+
+    /* Article List */
+    .article-list{display:flex;flex-direction:column;gap:12px}
+    .article-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px;cursor:pointer;transition:all .2s var(--ease-out)}
+    .article-card:hover{border-color:var(--border-hover);background:var(--bg-card-hover);transform:translateY(-1px)}
+    .article-card-header{display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+    .article-cat-tag{padding:3px 10px;border-radius:100px;font-size:11px;font-weight:600}
+    .article-date{font-size:12px;color:var(--text-tertiary)}
+    .article-card-title{font-size:17px;font-weight:600;letter-spacing:-0.01em;margin-bottom:8px;line-height:1.4}
+    .article-card-thesis{font-size:14px;color:var(--text-secondary);line-height:1.6}
+    .article-card-toxic{font-size:13px;color:#fbbf24;line-height:1.5;margin-top:8px;padding:8px 12px;background:rgba(251,191,36,0.04);border-radius:var(--radius-sm);font-style:italic}
+
+    /* Detail View */
+    .detail{display:none;padding:32px;max-width:800px;margin:0 auto}
+    .detail-back{display:inline-flex;align-items:center;gap:6px;padding:8px 12px;border-radius:var(--radius-sm);font-size:14px;color:var(--text-secondary);cursor:pointer;transition:all .2s;border:1px solid var(--border);background:var(--bg-card);font-family:var(--font-sans);margin-bottom:24px}
+    .detail-back:hover{color:var(--text-primary);border-color:var(--border-hover)}
+    .detail-cat{padding:4px 12px;border-radius:100px;font-size:12px;font-weight:600;display:inline-block;margin-bottom:16px}
+    .detail-title{font-size:clamp(24px,4vw,36px);font-weight:800;letter-spacing:-0.02em;line-height:1.2;margin-bottom:20px}
+    .detail-toxic{padding:16px 20px;background:rgba(251,191,36,0.06);border-left:3px solid #fbbf24;border-radius:0 var(--radius-md) var(--radius-md) 0;margin-bottom:20px;font-size:15px;color:#fbbf24;line-height:1.6;font-style:italic}
+    .detail-thesis{padding:16px 20px;background:rgba(6,182,212,0.04);border-left:3px solid var(--accent-cyan);border-radius:0 var(--radius-md) var(--radius-md) 0;margin-bottom:24px;font-size:15px;color:var(--text-secondary);line-height:1.7}
+    .detail-body{font-size:16px;line-height:1.9;color:var(--text-secondary)}
+    .detail-body p{margin-bottom:16px}
+    .detail-body strong{color:var(--text-primary)}
+    .detail-footer{margin-top:40px;padding-top:24px;border-top:1px solid var(--border);text-align:center}
+    .detail-footer-brand{font-size:13px;color:var(--text-tertiary)}
+
+    .empty-text{text-align:center;padding:60px 32px;color:var(--text-tertiary);font-size:15px}
+
+    /* Buttons */
+    .btn{display:inline-flex;align-items:center;gap:6px;padding:8px 18px;border-radius:var(--radius-sm);font-size:13px;font-weight:600;font-family:var(--font-sans);cursor:pointer;transition:all .2s var(--ease-out);border:none}
+    .btn-primary{background:var(--accent-cyan);color:#fff}
+    .btn-primary:hover{background:#0891b2;transform:translateY(-1px);box-shadow:0 4px 16px rgba(6,182,212,0.3)}
+    .btn-ghost{background:rgba(255,255,255,0.06);color:var(--text-primary);border:1px solid var(--border)}
+    .btn-ghost:hover{background:rgba(255,255,255,0.1)}
+
+    /* Responsive */
+    @media(max-width:768px){
+      .nav-inner{padding:0 20px}
+      .today-hero{padding:32px 20px}
+      .section{padding:32px 20px}
+      .detail{padding:20px}
+      .article-card{padding:20px}
+    }
+    @media(max-width:480px){
+      .today-title{font-size:20px}
+      .article-card-title{font-size:16px}
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href=".." class="nav-logo">
+        <span class="logo-icon">⚡</span>
+        <span class="logo-text">Luxmind</span>
+        <span class="logo-sub">有方Flow</span>
+      </a>
+      <div class="nav-links">
+        <span class="nav-product-badge">🌊 AI Agent 方法论</span>
+        <a href="..">← 返回主页</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <!-- Loading -->
+    <div class="loading-screen" id="loadingScreen">
+      <div class="loading-spinner"></div>
+      <span class="loading-text">加载内容中...</span>
+    </div>
+
+    <!-- Error -->
+    <div class="error-screen" id="errorScreen" style="display:none">
+      <div class="error-icon">😵</div>
+      <h2 style="font-size:24px;font-weight:700;margin-bottom:8px">加载失败</h2>
+      <p class="error-text">无法获取内容，请检查网络连接</p>
+      <div style="display:flex;gap:8px;margin-top:16px">
+        <button class="btn btn-primary" onclick="init()">重新加载</button>
+        <button class="btn btn-ghost" onclick="window.location.href='..'">返回主页</button>
+      </div>
+    </div>
+
+    <!-- Today Hero -->
+    <div class="today-hero" id="todayHero" style="display:none">
+      <div class="today-hero-inner">
+        <div class="today-label">📌 今日简报</div>
+        <h2 class="today-title" id="todayTitle" onclick="window.todaySlug && openDetail(window.todaySlug)"></h2>
+        <div class="today-thesis" id="todayThesis"></div>
+        <div class="today-toxic" id="todayToxic">💬 </div>
+        <div class="today-meta" id="todayMeta"></div>
+        <div class="today-actions">
+          <button class="btn btn-primary" id="todayReadBtn" onclick="window.todaySlug && openDetail(window.todaySlug)">阅读全文 →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- History Section -->
+    <div class="section" id="historySection" style="display:none">
+      <div class="section-inner">
+        <div class="section-header">
+          <div class="section-title">📚 历史文章</div>
+          <div class="section-categories" id="categoryFilter"></div>
+        </div>
+        <div class="article-list" id="articleList"></div>
+      </div>
+    </div>
+
+    <!-- Detail View -->
+    <div class="detail" id="detailView">
+      <button class="detail-back" onclick="closeDetail()">← 返回列表</button>
+      <div id="detailContent">
+        <span class="detail-cat" id="detailCat" style="color:var(--accent-cyan);background:rgba(6,182,212,0.1)"></span>
+        <h1 class="detail-title" id="detailTitle"></h1>
+        <div class="detail-toxic" id="detailToxic"></div>
+        <div class="detail-thesis" id="detailThesis"></div>
+        <div class="detail-body" id="detailBody"></div>
+        <div class="detail-footer">
+          <span class="detail-footer-brand">Luxmind · 有方Flow — AI PM 每日认知简报</span>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const CDN_BASE = 'https://lucian-tang.github.io/youfang-flow-data';
+    let allArticles = [];
+    let allCategories = [];
+    let selectedCategory = '';
+
+    function getCategoryColor(cat) {
+      const colors = {
+        '行业认知': '#06b6d4',
+        '产品设计': '#8b5cf6',
+        '成本设计': '#10b981',
+        '技术架构': '#3b82f6',
+        '用户研究': '#f59e0b',
+        '策略': '#ec4899'
+      };
+      return colors[cat] || '#6366f1';
+    }
+
+    // ====== Init ======
+    async function init() {
+      document.getElementById('loadingScreen').style.display = 'flex';
+      document.getElementById('errorScreen').style.display = 'none';
+      document.getElementById('todayHero').style.display = 'none';
+      document.getElementById('historySection').style.display = 'none';
+
+      try {
+        const resp = await fetch(CDN_BASE + '/index.json');
+        if (!resp.ok) throw new Error('HTTP ' + resp.status);
+        const data = await resp.json();
+
+        allCategories = data.categories || [];
+        allArticles = data.history || [];
+
+        // Today
+        if (data.today) {
+          renderToday(data.today);
+        }
+
+        // Render
+        renderCategories();
+        renderArticles(allArticles);
+
+        document.getElementById('loadingScreen').style.display = 'none';
+        document.getElementById('todayHero').style.display = 'block';
+        document.getElementById('historySection').style.display = 'block';
+      } catch (e) {
+        console.error('Load error:', e);
+        document.getElementById('loadingScreen').style.display = 'none';
+        document.getElementById('errorScreen').style.display = 'flex';
+      }
+    }
+
+    // ====== Render Today ======
+    function renderToday(today) {
+      document.getElementById('todayTitle').textContent = today.title || '';
+      document.getElementById('todayThesis').textContent = today.thesis || '';
+      document.getElementById('todayToxic').textContent = '💬 ' + (today.toxicComment || '');
+      const date = today.publishedAt ? new Date(today.publishedAt).toLocaleDateString('zh-CN', {year:'numeric',month:'long',day:'numeric'}) : '';
+      const cat = today.category || '';
+      const catColor = getCategoryColor(cat);
+      document.getElementById('todayMeta').innerHTML = `<span style="color:${catColor}">${cat}</span> · ${date}`;
+      window.todaySlug = today.uid;
+    }
+
+    // ====== Render Categories ======
+    function renderCategories() {
+      const container = document.getElementById('categoryFilter');
+      let html = `<button class="cat-btn ${selectedCategory === '' ? 'active' : ''}" onclick="filterByCategory('')">全部</button>`;
+      const seen = new Set();
+      allArticles.forEach(a => {
+        if (a.category && !seen.has(a.category)) {
+          seen.add(a.category);
+          const active = selectedCategory === a.category ? 'active' : '';
+          const color = getCategoryColor(a.category);
+          html += `<button class="cat-btn ${active}" style="--cat-color:${color}" onclick="filterByCategory('${a.category}')">${a.category}</button>`;
+        }
+      });
+      container.innerHTML = html;
+    }
+
+    function filterByCategory(cat) {
+      selectedCategory = cat;
+      renderCategories();
+      const filtered = cat ? allArticles.filter(a => a.category === cat) : allArticles;
+      renderArticles(filtered);
+    }
+
+    // ====== Render Article List ======
+    function renderArticles(articles) {
+      const container = document.getElementById('articleList');
+      if (!articles || articles.length === 0) {
+        container.innerHTML = '<div class="empty-text">暂无文章</div>';
+        return;
+      }
+
+      let html = '';
+      articles.forEach(a => {
+        const catColor = getCategoryColor(a.category);
+        const date = a.publishedAt ? new Date(a.publishedAt).toLocaleDateString('zh-CN', {year:'numeric',month:'short',day:'numeric'}) : '';
+        html += `
+          <div class="article-card" onclick="openDetail('${a.uid}')">
+            <div class="article-card-header">
+              <span class="article-cat-tag" style="color:${catColor};background:${catColor}16">${a.category}</span>
+              <span class="article-date">${date}</span>
+            </div>
+            <div class="article-card-title">${a.title}</div>
+            ${a.thesis ? `<div class="article-card-thesis">${a.thesis}</div>` : ''}
+            ${a.toxicComment ? `<div class="article-card-toxic">💬 ${a.toxicComment}</div>` : ''}
+          </div>`;
+      });
+      container.innerHTML = html;
+    }
+
+    // ====== Detail View ======
+    async function openDetail(uid) {
+      document.getElementById('todayHero').style.display = 'none';
+      document.getElementById('historySection').style.display = 'none';
+      document.getElementById('detailView').style.display = 'block';
+
+      // Try to find in loaded data first
+      const local = allArticles.find(a => a.uid === uid);
+      if (local && local.content && local.content.indexOf('\n') > -1) {
+        renderDetail(local);
+        return;
+      }
+
+      // Fetch from CDN
+      document.getElementById('detailContent').innerHTML = '<div class="loading-screen" style="min-height:200px"><div class="loading-spinner"></div><span class="loading-text">加载文章中...</span></div>';
+      try {
+        const resp = await fetch(CDN_BASE + '/articles/' + uid + '.json');
+        if (!resp.ok) throw new Error('HTTP ' + resp.status);
+        const article = await resp.json();
+        renderDetail(article);
+      } catch (e) {
+        // Fallback to local data
+        if (local) {
+          renderDetail(local);
+        } else {
+          document.getElementById('detailContent').innerHTML = '<div class="error-screen" style="min-height:200px"><div class="error-icon">😵</div><p class="error-text">文章加载失败</p></div>';
+        }
+      }
+    }
+
+    function renderDetail(article) {
+      const catColor = getCategoryColor(article.category);
+      document.getElementById('detailCat').style.color = catColor;
+      document.getElementById('detailCat').style.background = catColor + '16';
+      document.getElementById('detailCat').textContent = article.category || '';
+      document.getElementById('detailTitle').textContent = article.title || '';
+      document.getElementById('detailToxic').textContent = '💬 ' + (article.toxicComment || '');
+      document.getElementById('detailThesis').textContent = article.thesis || '';
+      document.getElementById('detailToxic').style.display = article.toxicComment ? 'block' : 'none';
+      document.getElementById('detailThesis').style.display = article.thesis ? 'block' : 'none';
+
+      // Format content - split paragraphs
+      let content = article.content || '';
+      content = content.replace(/\\n/g, '\n');
+      const paragraphs = content.split(/\n+/).filter(p => p.trim());
+      let bodyHtml = paragraphs.map(p => {
+        const trimmed = p.trim();
+        if (trimmed.startsWith('**') && trimmed.endsWith('**')) {
+          return `<p><strong>${trimmed.slice(2, -2)}</strong></p>`;
+        }
+        return `<p>${trimmed}</p>`;
+      }).join('');
+      document.getElementById('detailBody').innerHTML = bodyHtml;
+    }
+
+    function closeDetail() {
+      document.getElementById('detailView').style.display = 'none';
+      document.getElementById('todayHero').style.display = 'block';
+      document.getElementById('historySection').style.display = 'block';
+    }
+
+    // ====== Init ======
+    document.addEventListener('DOMContentLoaded', init);
+  </script>
+</body>
+</html>

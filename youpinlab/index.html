@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>有品 Lab — AI时代品味训练 | Luxmind</title>
+  <meta name="description" content="通过刻意练习，训练你对 AI 产品的审美判断力。500+ 题库，5 大赛道，在实战中提升品味。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⭐</text></svg>">
+  <style>
+    :root {
+      --bg-primary: #0a0a0f;
+      --bg-secondary: #111118;
+      --bg-card: #16161f;
+      --bg-card-hover: #1c1c28;
+      --border: rgba(255,255,255,0.06);
+      --border-hover: rgba(255,255,255,0.12);
+      --text-primary: #f1f1f3;
+      --text-secondary: #a1a1aa;
+      --text-tertiary: #71717a;
+      --accent-gold: #f59e0b;
+      --accent-red: #ef4444;
+      --accent-blue: #6366f1;
+      --gradient-gold: linear-gradient(135deg,#f59e0b,#ef4444);
+      --gradient-brand: linear-gradient(135deg,#6366f1,#8b5cf6,#a855f7);
+      --font-sans: 'Inter','Noto Sans SC',-apple-system,BlinkMacSystemFont,sans-serif;
+      --nav-height: 64px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --ease-out: cubic-bezier(0.16,1,0.3,1);
+    }
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    html{scroll-behavior:smooth;font-size:16px}
+    body{font-family:var(--font-sans);background:var(--bg-primary);color:var(--text-primary);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+    a{color:inherit;text-decoration:none}
+
+    /* Navigation */
+    .nav{position:fixed;top:0;left:0;right:0;z-index:100;height:var(--nav-height);background:rgba(10,10,15,0.85);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);box-shadow:0 1px 0 var(--border)}
+    .nav-inner{max-width:1200px;margin:0 auto;padding:0 32px;height:100%;display:flex;align-items:center;justify-content:space-between}
+    .nav-logo{display:flex;align-items:center;gap:8px;font-weight:700}
+    .nav-logo .logo-icon{font-size:20px;line-height:1}
+    .nav-logo .logo-text{font-size:18px;letter-spacing:-0.02em}
+    .nav-logo .logo-sub{font-size:12px;color:var(--text-tertiary);font-weight:500}
+    .nav-links{display:flex;gap:4px}
+    .nav-links a{padding:8px 16px;border-radius:6px;font-size:14px;font-weight:500;color:var(--text-secondary);transition:color .2s,background .2s}
+    .nav-links a:hover{color:var(--text-primary);background:rgba(255,255,255,0.05)}
+    .nav-product-badge{font-size:12px;color:var(--accent-gold);font-weight:600;letter-spacing:.02em}
+
+    /* Main */
+    main{padding-top:var(--nav-height);min-height:100vh}
+
+    /* Welcome Screen */
+    .welcome{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:calc(100vh - var(--nav-height));padding:60px 32px;text-align:center}
+    .welcome-icon{font-size:64px;margin-bottom:24px}
+    .welcome h1{font-size:clamp(32px,5vw,52px);font-weight:800;letter-spacing:-0.03em;margin-bottom:12px}
+    .welcome h1 .gradient-text{background:var(--gradient-gold);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+    .welcome-sub{font-size:18px;color:var(--text-secondary);max-width:560px;margin-bottom:8px;line-height:1.7}
+    .welcome-stats{display:flex;gap:32px;margin:24px 0 40px;flex-wrap:wrap;justify-content:center}
+    .welcome-stat{text-align:center}
+    .welcome-stat-number{display:block;font-size:28px;font-weight:700;color:var(--accent-gold);margin-bottom:4px}
+    .welcome-stat-label{font-size:13px;color:var(--text-tertiary)}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:14px 32px;border-radius:var(--radius-md);font-size:15px;font-weight:600;font-family:var(--font-sans);cursor:pointer;transition:all .2s var(--ease-out);border:none}
+    .btn-primary{background:var(--accent-gold);color:#0a0a0f}
+    .btn-primary:hover{background:#d97706;transform:translateY(-1px);box-shadow:0 8px 24px rgba(245,158,11,0.3)}
+    .btn-secondary{background:rgba(255,255,255,0.06);color:var(--text-primary);border:1px solid var(--border)}
+    .btn-secondary:hover{background:rgba(255,255,255,0.1)}
+    .btn-sm{padding:8px 16px;font-size:13px}
+
+    /* Quiz Screen */
+    .quiz{display:none;padding:32px;max-width:800px;margin:0 auto}
+    .quiz-header{display:flex;justify-content:space-between;align-items:center;padding:16px 0 24px;border-bottom:1px solid var(--border);margin-bottom:32px;flex-wrap:wrap;gap:12px}
+    .quiz-progress{font-size:14px;color:var(--text-tertiary)}
+    .quiz-progress strong{color:var(--text-primary)}
+    .quiz-score{font-size:14px;color:var(--text-tertiary)}
+    .quiz-score strong{color:var(--accent-gold)}
+    .progress-bar-wrap{width:100%;height:4px;background:var(--bg-card);border-radius:2px;margin-top:12px}
+    .progress-bar-fill{height:100%;border-radius:2px;background:var(--gradient-gold);transition:width .3s var(--ease-out)}
+
+    .question-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:32px;margin-bottom:20px}
+    .question-tags{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+    .question-tag{padding:3px 10px;border-radius:100px;font-size:11px;font-weight:600;background:rgba(245,158,11,0.15);color:#fbbf24}
+    .question-difficulty{font-size:12px;color:var(--text-tertiary);font-weight:500;margin-bottom:8px}
+    .question-text{font-size:20px;font-weight:600;line-height:1.5;margin-bottom:24px}
+
+    .question-image-wrap{margin-bottom:24px;border-radius:var(--radius-md);overflow:hidden;background:var(--bg-secondary)}
+    .question-image-wrap img{width:100%;max-height:400px;object-fit:contain;display:block;cursor:pointer;transition:transform .3s}
+    .question-image-wrap img:hover{transform:scale(1.02)}
+    .image-enlarge-hint{font-size:12px;color:var(--text-tertiary);text-align:center;padding:4px;font-style:italic}
+
+    .options{display:flex;flex-direction:column;gap:12px}
+    .option{padding:16px 20px;border-radius:var(--radius-md);border:1px solid var(--border);background:var(--bg-secondary);cursor:pointer;transition:all .2s;font-size:15px;text-align:left;font-family:var(--font-sans);color:var(--text-primary);line-height:1.5}
+    .option:hover{border-color:var(--border-hover);background:var(--bg-card-hover)}
+    .option.selected{border-color:var(--accent-gold);background:rgba(245,158,11,0.1)}
+    .option.correct{border-color:#22c55e;background:rgba(34,197,94,0.1);color:#86efac}
+    .option.wrong{border-color:var(--accent-red);background:rgba(239,68,68,0.1);color:#fca5a5}
+    .option.disabled{pointer-events:none;opacity:0.7}
+
+    .explanation{display:none;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px;margin-top:20px}
+    .explanation.visible{display:block}
+    .explanation-header{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+    .explanation-icon{font-size:18px}
+    .explanation-result{font-size:15px;font-weight:600}
+    .explanation-result.correct{color:#86efac}
+    .explanation-result.wrong{color:#fca5a5}
+    .explanation-text{font-size:14px;line-height:1.7;color:var(--text-secondary)}
+    .explanation-actions{display:flex;gap:12px;margin-top:20px}
+
+    /* Result Screen */
+    .result{display:none;padding:32px;max-width:600px;margin:0 auto;text-align:center;min-height:calc(100vh - var(--nav-height));display:flex;flex-direction:column;align-items:center;justify-content:center}
+    .result-icon{font-size:80px;margin-bottom:24px}
+    .result h2{font-size:clamp(28px,4vw,40px);font-weight:800;letter-spacing:-0.03em;margin-bottom:16px}
+    .result-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:32px 0;width:100%;max-width:400px}
+    .result-stat{padding:20px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-md)}
+    .result-stat-num{display:block;font-size:32px;font-weight:700;margin-bottom:4px}
+    .result-stat-num.gold{color:var(--accent-gold)}
+    .result-stat-num.green{color:#22c55e}
+    .result-stat-num.red{color:var(--accent-red)}
+    .result-stat-label{font-size:13px;color:var(--text-tertiary)}
+    .result-actions{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+    .result-actions .btn{margin-top:16px}
+
+    /* Back to top */
+    .back-btn{margin-top:40px;text-align:center}
+
+    /* Responsive */
+    @media(max-width:768px){
+      .nav-inner{padding:0 20px}
+      .welcome{padding:40px 20px}
+      .quiz{padding:20px}
+      .question-card{padding:24px}
+      .question-text{font-size:18px}
+      .result-stats{grid-template-columns:1fr 1fr}
+    }
+    @media(max-width:480px){
+      .welcome-stats{gap:16px}
+      .options{gap:10px}
+      .option{padding:14px 16px;font-size:14px}
+    }
+
+    /* Loading */
+    .loading-screen{display:flex;align-items:center;justify-content:center;min-height:calc(100vh - var(--nav-height));flex-direction:column;gap:16px}
+    .loading-spinner{width:36px;height:36px;border:3px solid var(--border);border-top-color:var(--accent-gold);border-radius:50%;animation:spin .8s linear infinite}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .loading-text{font-size:14px;color:var(--text-tertiary)}
+
+    .error-screen{display:flex;align-items:center;justify-content:center;min-height:calc(100vh - var(--nav-height));flex-direction:column;gap:12px;padding:32px;text-align:center}
+    .error-icon{font-size:48px}
+    .error-text{font-size:16px;color:var(--text-secondary)}
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href=".." class="nav-logo">
+        <span class="logo-icon">⚡</span>
+        <span class="logo-text">Luxmind</span>
+        <span class="logo-sub">有品Lab</span>
+      </a>
+      <div class="nav-links">
+        <span class="nav-product-badge">⭐ 品味训练</span>
+        <a href="..">← 返回主页</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <!-- Loading -->
+    <div class="loading-screen" id="loadingScreen">
+      <div class="loading-spinner"></div>
+      <span class="loading-text">加载题库中...</span>
+    </div>
+
+    <!-- Error -->
+    <div class="error-screen" id="errorScreen" style="display:none">
+      <div class="error-icon">😵</div>
+      <h2 style="font-size:24px;font-weight:700;margin-bottom:8px">题库加载失败</h2>
+      <p class="error-text">请检查网络连接后重试</p>
+      <button class="btn btn-secondary btn-sm" onclick="loadQuestions()" style="margin-top:16px">重新加载</button>
+    </div>
+
+    <!-- Welcome Screen -->
+    <div class="welcome" id="welcomeScreen" style="display:none">
+      <div class="welcome-icon">⭐</div>
+      <h1><span class="gradient-text">有品 Lab</span></h1>
+      <p class="welcome-sub">AI时代的品味训练场。通过 500+ 道实战题目，训练你对 AI 产品、设计、内容的审美判断力。</p>
+      <div class="welcome-stats">
+        <div class="welcome-stat">
+          <span class="welcome-stat-number" id="totalCount">500</span>
+          <span class="welcome-stat-label">总题目</span>
+        </div>
+        <div class="welcome-stat">
+          <span class="welcome-stat-number">5</span>
+          <span class="welcome-stat-label">赛道</span>
+        </div>
+        <div class="welcome-stat">
+          <span class="welcome-stat-number">∞</span>
+          <span class="welcome-stat-label">无限重练</span>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px;align-items:center">
+        <button class="btn btn-primary" onclick="startQuiz()" id="startBtn">开始挑战</button>
+        <button class="btn btn-secondary" onclick="startQuiz('all')">完整模式（500题）</button>
+      </div>
+    </div>
+
+    <!-- Quiz Screen -->
+    <div class="quiz" id="quizScreen">
+      <div class="quiz-header">
+        <div class="quiz-progress">题目 <strong id="currentNum">1</strong> / <span id="totalNum">20</span></div>
+        <div class="quiz-score">得分: <strong id="scoreDisplay">0</strong></div>
+        <div class="progress-bar-wrap">
+          <div class="progress-bar-fill" id="progressFill" style="width:0%"></div>
+        </div>
+      </div>
+      <div id="questionContainer"></div>
+    </div>
+
+    <!-- Result Screen -->
+    <div class="result" id="resultScreen" style="display:none">
+      <div class="result-icon" id="resultIcon">🏆</div>
+      <h2 id="resultTitle">挑战完成！</h2>
+      <div class="result-stats">
+        <div class="result-stat">
+          <span class="result-stat-num gold" id="resultTotal">20</span>
+          <span class="result-stat-label">总题数</span>
+        </div>
+        <div class="result-stat">
+          <span class="result-stat-num green" id="resultCorrect">0</span>
+          <span class="result-stat-label">正确</span>
+        </div>
+        <div class="result-stat">
+          <span class="result-stat-num red" id="resultWrong">0</span>
+          <span class="result-stat-label">错误</span>
+        </div>
+      </div>
+      <div style="font-size:40px;font-weight:800;margin-bottom:24px" id="resultPercent">0%</div>
+      <div class="result-actions">
+        <button class="btn btn-primary" onclick="startQuiz()">再来一轮</button>
+        <button class="btn btn-secondary" onclick="showWelcome()">返回首页</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- Image Preview Modal -->
+  <div id="imageModal" style="display:none;position:fixed;inset:0;z-index:999;background:rgba(0,0,0,0.9);align-items:center;justify-content:center;cursor:pointer" onclick="this.style.display='none'">
+    <img id="modalImage" style="max-width:90vw;max-height:90vh;border-radius:8px" src="" alt="preview">
+  </div>
+
+  <script>
+    // ====== Quiz State ======
+    let allQuestions = [];
+    let sessionQuestions = [];
+    let currentIndex = 0;
+    let score = 0;
+    let answered = false;
+    const SESSION_SIZE = 20;
+
+    // ====== Question Type Labels ======
+    const TYPE_LABELS = {
+      'ai_vs_real': 'AI vs 真实',
+      'prompt_compare': '提示词对决',
+      'copy_judge': '文案判断',
+      'design_compare': '设计品鉴',
+      'writing_style': '写作风格'
+    };
+
+    // ====== Load Questions ======
+    async function loadQuestions() {
+      const loading = document.getElementById('loadingScreen');
+      const error = document.getElementById('errorScreen');
+      const welcome = document.getElementById('welcomeScreen');
+      loading.style.display = 'flex';
+      error.style.display = 'none';
+      welcome.style.display = 'none';
+
+      try {
+        const resp = await fetch('data/questions.json');
+        if (!resp.ok) throw new Error('HTTP ' + resp.status);
+        const data = await resp.json();
+        allQuestions = data.questions || [];
+        loading.style.display = 'none';
+        document.getElementById('totalCount').textContent = allQuestions.length;
+        welcome.style.display = 'flex';
+      } catch (e) {
+        console.error('Load error:', e);
+        loading.style.display = 'none';
+        error.style.display = 'flex';
+      }
+    }
+
+    // ====== Start Quiz ======
+    function startQuiz(mode) {
+      const welcome = document.getElementById('welcomeScreen');
+      const quiz = document.getElementById('quizScreen');
+      const result = document.getElementById('resultScreen');
+      welcome.style.display = 'none';
+      quiz.style.display = 'none';
+      result.style.display = 'none';
+
+      // Shuffle and pick
+      let pool = [...allQuestions];
+      // Fisher-Yates shuffle
+      for (let i = pool.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [pool[i], pool[j]] = [pool[j], pool[i]];
+      }
+
+      if (mode === 'all') {
+        sessionQuestions = pool;
+      } else {
+        sessionQuestions = pool.slice(0, Math.min(SESSION_SIZE, pool.length));
+      }
+
+      currentIndex = 0;
+      score = 0;
+      quiz.style.display = 'block';
+      updateProgress();
+      renderQuestion();
+    }
+
+    function showWelcome() {
+      document.getElementById('quizScreen').style.display = 'none';
+      document.getElementById('resultScreen').style.display = 'none';
+      document.getElementById('welcomeScreen').style.display = 'flex';
+    }
+
+    // ====== Progress ======
+    function updateProgress() {
+      const total = sessionQuestions.length;
+      document.getElementById('currentNum').textContent = currentIndex + 1;
+      document.getElementById('totalNum').textContent = total;
+      document.getElementById('scoreDisplay').textContent = score;
+      document.getElementById('progressFill').style.width = ((currentIndex) / total * 100) + '%';
+    }
+
+    // ====== Render Question ======
+    function renderQuestion() {
+      answered = false;
+      const q = sessionQuestions[currentIndex];
+      const container = document.getElementById('questionContainer');
+
+      const typeLabel = TYPE_LABELS[q.type] || q.type;
+      const difficultyStars = '★'.repeat(q.difficulty) + '☆'.repeat(3 - q.difficulty);
+
+      let imageHtml = '';
+      if (q.image) {
+        imageHtml = `
+          <div class="question-image-wrap">
+            <img src="${q.image}" alt="题目图片" loading="lazy" onclick="document.getElementById('modalImage').src=this.src;document.getElementById('imageModal').style.display='flex'">
+            <div class="image-enlarge-hint">👆 点击查看大图</div>
+          </div>`;
+      }
+
+      let optionsHtml = q.options.map((opt, i) => `
+        <button class="option" data-index="${i}" onclick="selectOption(this, ${i})">
+          ${opt}
+        </button>
+      `).join('');
+
+      container.innerHTML = `
+        <div class="question-card">
+          <div class="question-tags">
+            <span class="question-tag">${typeLabel}</span>
+          </div>
+          <div class="question-difficulty">难度: ${difficultyStars}</div>
+          <div class="question-text">${q.question}</div>
+          ${imageHtml}
+          <div class="options" id="optionsContainer">
+            ${optionsHtml}
+          </div>
+        </div>
+        <div class="explanation" id="explanation">
+          <div class="explanation-header">
+            <span class="explanation-icon" id="expIcon">✅</span>
+            <span class="explanation-result" id="expResult">正确！</span>
+          </div>
+          <div class="explanation-text" id="expText"></div>
+          <div class="explanation-actions">
+            <button class="btn btn-primary btn-sm" id="nextBtn" onclick="nextQuestion()">
+              ${currentIndex < sessionQuestions.length - 1 ? '下一题 →' : '查看结果'}
+            </button>
+          </div>
+        </div>
+      `;
+
+      updateProgress();
+    }
+
+    // ====== Select Option ======
+    function selectOption(el, index) {
+      if (answered) return;
+      answered = true;
+
+      const q = sessionQuestions[currentIndex];
+      const options = document.querySelectorAll('.option');
+      const correctIndex = q.options.indexOf(q.answer);
+
+      options.forEach((opt, i) => {
+        opt.classList.add('disabled');
+        if (i === correctIndex) opt.classList.add('correct');
+        if (i === index && index !== correctIndex) opt.classList.add('wrong');
+        if (i === index) opt.classList.add('selected');
+      });
+
+      const isCorrect = index === correctIndex;
+      if (isCorrect) score++;
+
+      const explanation = document.getElementById('explanation');
+      explanation.classList.add('visible');
+
+      document.getElementById('expIcon').textContent = isCorrect ? '✅' : '❌';
+      document.getElementById('expResult').textContent = isCorrect ? '回答正确！' : '回答错误';
+      document.getElementById('expResult').className = 'explanation-result ' + (isCorrect ? 'correct' : 'wrong');
+      document.getElementById('expText').textContent = q.explanation || '暂无解析';
+
+      document.getElementById('scoreDisplay').textContent = score;
+    }
+
+    // ====== Next Question ======
+    function nextQuestion() {
+      if (currentIndex < sessionQuestions.length - 1) {
+        currentIndex++;
+        renderQuestion();
+      } else {
+        showResult();
+      }
+    }
+
+    // ====== Show Result ======
+    function showResult() {
+      const quiz = document.getElementById('quizScreen');
+      const result = document.getElementById('resultScreen');
+      quiz.style.display = 'none';
+      result.style.display = 'flex';
+
+      const total = sessionQuestions.length;
+      const correct = score;
+      const wrong = total - correct;
+      const percent = Math.round(correct / total * 100);
+
+      document.getElementById('resultTotal').textContent = total;
+      document.getElementById('resultCorrect').textContent = correct;
+      document.getElementById('resultWrong').textContent = wrong;
+      document.getElementById('resultPercent').textContent = percent + '%';
+
+      let icon, title;
+      if (percent >= 80) { icon = '🏆'; title = '品味大师！'; }
+      else if (percent >= 60) { icon = '👏'; title = '品味不错！'; }
+      else if (percent >= 40) { icon = '💪'; title = '还需要练习'; }
+      else { icon = '📚'; title = '路还很长，继续努力'; }
+      document.getElementById('resultIcon').textContent = icon;
+      document.getElementById('resultTitle').textContent = title;
+    }
+
+    // ====== Init ======
+    document.addEventListener('DOMContentLoaded', loadQuestions);
+  </script>
+</body>
+</html>
