@@ -1,0 +1,15 @@
+{
+  "name": "luxmind-visit-counter",
+  "version": "1.0.0",
+  "description": "轻量访问计数 API — 为 luxmind.cn 提供累计访问统计",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "pm2": "pm2 start app.js --name luxmind-visits"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.0"
+  },
+  "private": true
+}

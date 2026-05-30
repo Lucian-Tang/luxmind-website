@@ -57,6 +57,41 @@
     observer.observe(el);
   });
 
+
+  // --- Visit Counter (deferred, non-blocking) ---
+  const VISIT_API = 'https://luxmind.cn/api';
+
+  function formatNumber(n) {
+    return n.toLocaleString('zh-CN');
+  }
+
+  function updateVisitCounter() {
+    const el = document.getElementById('visitCounter');
+    if (!el) return;
+
+    fetch(VISIT_API + '/visits?increment=true', { method: 'GET' })
+      .then(r => {
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        return r.json();
+      })
+      .then(data => {
+        if (typeof data.count === 'number') {
+          el.textContent = '累计访问: ' + formatNumber(data.count) + ' 次';
+        }
+      })
+      .catch(() => {
+        // 静默降级 — 不弹错误，不影响页面其他功能
+        el.style.display = 'none';
+      });
+  }
+
+  // 页面完全渲染后再发起，不阻塞首屏
+  if (window.requestIdleCallback) {
+    requestIdleCallback(updateVisitCounter, { timeout: 3000 });
+  } else {
+    setTimeout(updateVisitCounter, 1500);
+  }
+
   // --- Smooth parallax for hero orbs on mouse move ---
   const hero = document.querySelector('.hero');
   const orbs = document.querySelectorAll('.orb');
